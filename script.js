@@ -20,7 +20,7 @@ function getUserChoice() {
     let userChoice = prompt("Enter your choice of Rock, Paper, or Scissors").toUpperCase();
     while (userChoice !== 'ROCK' && userChoice !== 'SCISSORS' && userChoice !== 'PAPER') {
         alert('Please enter a valid argument or either Rock, Paper, or Scissors')
-        userChoice = prompt("Enter your choice of Rock, Paper, or Scissors")
+        userChoice = prompt("Enter your choice of Rock, Paper, or Scissors").toUpperCase();
     }
     return userChoice.toUpperCase()
 }
@@ -84,8 +84,10 @@ function playGame() {
 
     if (computerScore > userScore) {
         alert(`Sorry, you lose ${computerScore} games to ${userScore}.`);
-    } else {
+    } else if (userScore > computerScore) {
         alert(`Congrats, you win ${userScore} games to ${computerScore}.`);
+    } else {
+        alert(`Woah, a draw at ${userScore} games to ${computerScore}.`)
     }
     return
 }
