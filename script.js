@@ -25,6 +25,8 @@ function getUserChoice() {
     return userChoice.toUpperCase()
 }
 
+
+
 function determineWinner(computerChoice, userChoice) {
     switch (computerChoice) {
         case "ROCK":
@@ -56,8 +58,9 @@ function determineWinner(computerChoice, userChoice) {
     }
 }
 
-function playRound() {
-    let userChoice = getUserChoice().toUpperCase()
+function playRound(buttonClicked) {
+    console.log('button was heard');
+    let userChoice = buttonClicked.toUpperCase()
     let computerChoice = getComputerChoice().toUpperCase()
     roundResult = determineWinner(computerChoice, userChoice)
     switch (roundResult) {
@@ -75,6 +78,7 @@ function playRound() {
     }  
 }
 
+/*
 function playGame() {
     let round = 1
     while (round <= 5) {
@@ -91,11 +95,38 @@ function playGame() {
     }
     return
 }
+*/
 
 let computerScore = 0;
 let userScore = 0;
 
-playGame()
+//playGame()
+
+//Event Listeners for three buttons
+
+//const rockButton = document.querySelector("button.rock")
+//const paperButton = document.querySelector("button.paper")
+//const scissorsButton = document.querySelector("button.scissors")
+
+const buttons = document.querySelectorAll("button.player-input");
+console.log(buttons);
+
+/*
+When you want to pass parameters to a function in an event listener, you need to ensure that the function is not invoked immediately. Instead, the function should be invoked only when the event occurs (e.g., when a button is clicked). This is often achieved by using an intermediate function, also known as a wrapper function.
+*/
+
+// Alternative Approach: Inline Arrow Function
+//You can also use an inline arrow function in the event listener to directly pass the parameter:
+buttons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+        let choice = event.target.textContent
+        playRound(choice)
+    });
+    console.log(button);
+})
+
+
+
 console.log(computerScore, userScore);
 //console.log(getComputerChoice());
 //console.log(getUserChoice());
