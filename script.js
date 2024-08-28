@@ -16,17 +16,6 @@ function getComputerChoice() {
     return computerChoice
 }
 
-function getUserChoice() {
-    let userChoice = prompt("Enter your choice of Rock, Paper, or Scissors").toUpperCase();
-    while (userChoice !== 'ROCK' && userChoice !== 'SCISSORS' && userChoice !== 'PAPER') {
-        alert('Please enter a valid argument or either Rock, Paper, or Scissors')
-        userChoice = prompt("Enter your choice of Rock, Paper, or Scissors").toUpperCase();
-    }
-    return userChoice.toUpperCase()
-}
-
-
-
 function determineWinner(computerChoice, userChoice) {
     switch (computerChoice) {
         case "ROCK":
@@ -58,62 +47,58 @@ function determineWinner(computerChoice, userChoice) {
     }
 }
 
+function gameOver(roundResultText) {
+    if (computerScore == 5) {
+        roundResultText.textContent = 'Computer wins! To start again make your selection'
+        userScore = 0
+        computerScore = 0
+    } else if (userScore == 5) {
+        roundResultText.textContent = 'You win! To start again make your selection'
+        userScore = 0
+        computerScore = 0
+    }
+    return
+}
+
+
 function playRound(buttonClicked) {
     console.log('button was heard');
     let userChoice = buttonClicked.toUpperCase()
     let computerChoice = getComputerChoice().toUpperCase()
     roundResult = determineWinner(computerChoice, userChoice)
+    const roundResultText = document.querySelector("p.game-result")
+    const userScoreboard = document.querySelector("p.user-score");
+    const computerScoreboard = document.querySelector("p.computer-score");
+
     switch (roundResult) {
         case 'User':
-            alert(`You win! ${userChoice} beats ${computerChoice}.`)
+            roundResultText.textContent = `You win! ${userChoice} beats ${computerChoice}.`
+            //alert(`You win! ${userChoice} beats ${computerChoice}.`)
             userScore++
+            userScoreboard.textContent = userScore;
+            gameOver(roundResultText)
+            userScoreboard.textContent = userScore;
             break;
         case 'Computer':
-            alert(`You lose! ${computerChoice} beats ${userChoice}.`);
+            roundResultText.textContent = `You lose! ${computerChoice} beats ${userChoice}.`;
+            //alert(`You lose! ${computerChoice} beats ${userChoice}.`);
             computerScore++
+            computerScoreboard.textContent = computerScore;
+            gameOver(roundResultText);
+            computerScoreboard.textContent = computerScore;
             break;
         case 'Tie':
-            alert(`Draw! ${userChoice} ties ${computerChoice}.`)
+            roundResultText.textContent = `Draw! ${userChoice} ties ${computerChoice}.`
+            //alert(`Draw! ${userChoice} ties ${computerChoice}.`)
             break
     }  
 }
 
-/*
-function playGame() {
-    let round = 1
-    while (round <= 5) {
-        playRound();
-        round++;
-    }
-
-    if (computerScore > userScore) {
-        alert(`Sorry, you lose ${computerScore} games to ${userScore}.`);
-    } else if (userScore > computerScore) {
-        alert(`Congrats, you win ${userScore} games to ${computerScore}.`);
-    } else {
-        alert(`Woah, a draw at ${userScore} games to ${computerScore}.`)
-    }
-    return
-}
-*/
-
 let computerScore = 0;
 let userScore = 0;
 
-//playGame()
-
-//Event Listeners for three buttons
-
-//const rockButton = document.querySelector("button.rock")
-//const paperButton = document.querySelector("button.paper")
-//const scissorsButton = document.querySelector("button.scissors")
-
 const buttons = document.querySelectorAll("button.player-input");
 console.log(buttons);
-
-/*
-When you want to pass parameters to a function in an event listener, you need to ensure that the function is not invoked immediately. Instead, the function should be invoked only when the event occurs (e.g., when a button is clicked). This is often achieved by using an intermediate function, also known as a wrapper function.
-*/
 
 // Alternative Approach: Inline Arrow Function
 //You can also use an inline arrow function in the event listener to directly pass the parameter:
@@ -124,6 +109,21 @@ buttons.forEach((button) => {
     });
     console.log(button);
 })
+
+//Create user and computer scoreboard
+//userScoreboard = document.createElement("div");
+//userScoreboard.classList.add("user-score");
+//userScoreboard.appendChild(document.createElement("h3"))
+//console.log(userScoreboard);
+//userScoreboard
+
+//computerScoreboard = document.createElement("div");
+//computerScoreboard.classList.add("computer-score");
+//computerScoreboard.appendChild(document.createElement("h3"))
+
+
+
+
 
 
 
