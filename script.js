@@ -1,5 +1,7 @@
 // Function to get Computer Choice of Rock, Paper, or Scissors
 
+const WINNING_SCORE = 5
+
 function getComputerChoice() {
     let computerChoice;
     let x = Math.floor(Math.random() * 3) + 1;
@@ -47,51 +49,58 @@ function determineWinner(computerChoice, userChoice) {
     }
 }
 
-function gameOver(roundResultText) {
-    if (computerScore == 5) {
-        roundResultText.textContent = 'Computer wins! To start again make your selection'
-        userScore = 0
-        computerScore = 0
-    } else if (userScore == 5) {
-        roundResultText.textContent = 'You win! To start again make your selection'
-        userScore = 0
-        computerScore = 0
-    }
-    return
+
+
+function updateScore(result) {
+    if (result === 'user') userScore++;
+    if (result === 'computer') computerScore++;
+
+    document.querySelector("p.user-score").textContent = userScore;
+    document.querySelector("p.computer-score").textContent = computerScore;
 }
 
 
 function playRound(buttonClicked) {
+    if (userScore >= WINNING_SCORE || computerScore >= WINNING_SCORE) return;
     console.log('button was heard');
     let userChoice = buttonClicked.toUpperCase()
     let computerChoice = getComputerChoice().toUpperCase()
     roundResult = determineWinner(computerChoice, userChoice)
     const roundResultText = document.querySelector("p.game-result")
-    const userScoreboard = document.querySelector("p.user-score");
-    const computerScoreboard = document.querySelector("p.computer-score");
+    
 
     switch (roundResult) {
         case 'User':
             roundResultText.textContent = `You win! ${userChoice} beats ${computerChoice}.`
-            //alert(`You win! ${userChoice} beats ${computerChoice}.`)
-            userScore++
-            userScoreboard.textContent = userScore;
-            gameOver(roundResultText)
-            userScoreboard.textContent = userScore;
-            break;
+            updateScore('user')
+            break
         case 'Computer':
             roundResultText.textContent = `You lose! ${computerChoice} beats ${userChoice}.`;
-            //alert(`You lose! ${computerChoice} beats ${userChoice}.`);
-            computerScore++
-            computerScoreboard.textContent = computerScore;
-            gameOver(roundResultText);
-            computerScoreboard.textContent = computerScore;
-            break;
+            updateScore('computer')
+            break
         case 'Tie':
             roundResultText.textContent = `Draw! ${userChoice} ties ${computerChoice}.`
-            //alert(`Draw! ${userChoice} ties ${computerChoice}.`)
             break
     }  
+    console.log('I can get here');
+
+    if (userScore >= WINNING_SCORE || computerScore >= WINNING_SCORE) {
+        document.getElementById('restartButton').classList.remove('hidden');
+        if (userScore >= WINNING_SCORE) {
+            roundResultText.textContent = `You win! Press Restart to play another round`
+        } else {
+            roundResultText.textContent = `You lose! Press Restart to play another round`
+        }
+    }
+}
+
+function restartGame() {
+    userScore = 0;
+    computerScore = 0;
+    document.querySelector("p.user-score").textContent = userScore;
+    document.querySelector("p.computer-score").textContent = computerScore;
+    document.querySelector("p.game-result").textContent = ''
+    document.getElementById('restartButton').classList.add('hidden');
 }
 
 let computerScore = 0;
@@ -110,23 +119,8 @@ buttons.forEach((button) => {
     console.log(button);
 })
 
-//Create user and computer scoreboard
-//userScoreboard = document.createElement("div");
-//userScoreboard.classList.add("user-score");
-//userScoreboard.appendChild(document.createElement("h3"))
-//console.log(userScoreboard);
-//userScoreboard
-
-//computerScoreboard = document.createElement("div");
-//computerScoreboard.classList.add("computer-score");
-//computerScoreboard.appendChild(document.createElement("h3"))
 
 
-
-
-
-
-
-console.log(computerScore, userScore);
+//console.log(computerScore, userScore);
 //console.log(getComputerChoice());
 //console.log(getUserChoice());

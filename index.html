@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="script.js" defer></script>
     <title>Document</title>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
     <section class="section-one header section">
@@ -24,14 +25,17 @@
             <button class="scissors player-input">Scissors</button>
         </div>
         <div class="scoreboard">
-            <div class="user-score"></div>
+            <div class="user-score">
                 <h3>User:</h3>
                 <p class="user-score"></p>
+            </div>
             <div class="computer-score">
                 <h3>Computer:</h3>
                 <p class="computer-score"></p>
-            </div>
-            
+            </div>            
+        </div>
+        <div>
+            <button id="restartButton" class="hidden" onclick="restartGame()">Restart Game</button>
         </div>
     </section>
 </body>

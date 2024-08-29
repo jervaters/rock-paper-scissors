@@ -1,0 +1,40 @@
+body { 
+    font-family: Arial, sans-serif; 
+    margin: auto;
+    max-width: 960px;
+    background-color: antiquewhite;
+    
+}
+
+.hidden { 
+    display: none; 
+}
+
+.section-one {
+    background-color: bisque;
+    display: flex;
+    margin: auto;
+    max-width: fit-content;
+}
+
+.section-two {
+    display: flex;
+    padding-top: 50px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+div.user-score, div.computer-score {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+    
+}
+
+p.user-score, p.computer-score {
+    color: crimson;
+    font-size: larger;
+    font-weight: 600;
+}
